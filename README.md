@@ -106,3 +106,4 @@ The GPT model works best with EER diagrams that are described with clear text (e
 - Batch upload and grading.
 - Save evaluations to database or downloadable report.
 - Transfer uploads to a database as well
+- Use general website for creating diagrams, so they can be transferred as code to AI (e.g. https://creately.com/diagram/example/i2gi1q5v1/eer-model-classic)

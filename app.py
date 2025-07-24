@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request
 from werkzeug.utils import secure_filename
-from openai import OpenAI
+import openai
 import fitz  # PyMuPDF
 import os
 
@@ -8,7 +8,7 @@ app = Flask(__name__)
 app.config["UPLOAD_FOLDER"] = "uploads"
 os.makedirs(app.config["UPLOAD_FOLDER"], exist_ok=True)
 
-client = OpenAI(api_key="your-openai-api-key")  # Вставь сюда свой ключ
+openai.api_key = "your-openai-api-key"  # Вставь сюда свой ключ
 
 def extract_text_from_pdf(filepath):
     doc = fitz.open(filepath)
@@ -18,7 +18,7 @@ def extract_text_from_pdf(filepath):
     return text
 
 def evaluate_with_gpt(text):
-    response = client.chat.completions.create(
+    response = openai.chat.completions.create(
         model="gpt-4",
         messages=[
             {"role": "system", "content": "You are an expert in evaluating EER diagrams submitted by students."},
