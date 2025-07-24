@@ -4,23 +4,43 @@
     <meta charset="UTF-8">
     <title>EER Diagram Evaluator</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        :root {
+            --tum-blue: #0065bd;
+        }
+        .btn-tum {
+            background-color: var(--tum-blue);
+        }
+        .btn-tum:hover {
+            background-color: #004b8d;
+        }
+    </style>
 </head>
 <body class="bg-gray-50 min-h-screen flex items-center justify-center">
     <div class="bg-white shadow-xl rounded-2xl p-8 w-full max-w-3xl">
-        <h1 class="text-2xl font-bold mb-4 text-center text-indigo-700">EER Diagram Evaluator</h1>
+        <div class="flex items-center mb-6">
+            <img src="/static/TUM.svg" alt="TUM Logo" class="h-10 mr-4">
+            <h1 class="text-2xl font-bold text-indigo-700">EER Diagram Evaluator</h1>
+        </div>
 
         <form method="POST" enctype="multipart/form-data" class="flex flex-col items-center gap-4">
-            <input type="file" name="pdf" accept="application/pdf" required class="file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100">
-            <button type="submit" class="bg-indigo-600 hover:bg-indigo-700 text-white py-2 px-6 rounded-xl transition-all">Upload & Evaluate</button>
+            <input type="file" name="pdf" accept="application/pdf" multiple required
+                   class="file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-[#e6f0fa] file:text-[#0065bd] hover:file:bg-[#cce0f5]">
+            <button type="submit" class="btn-tum text-white py-2 px-6 rounded-xl transition-all">
+                Upload & Evaluate
+            </button>
         </form>
 
-        {% if evaluation %}
-            <div class="mt-6">
-                <h2 class="text-xl font-semibold text-gray-800 mb-2">Evaluation Result for <span class="text-indigo-500">{{ filename }}</span>:</h2>
-                <div class="bg-gray-100 p-4 rounded-md text-gray-700 whitespace-pre-line">
-                    {{ evaluation }}
-                </div>
+        {% if evaluations %}
+        <div class="mt-6">
+            <h2 class="text-xl font-semibold text-gray-800 mb-2">Results:</h2>
+            {% for evaluation in evaluations %}
+            <div class="bg-gray-100 p-4 rounded-md text-gray-700 whitespace-pre-line mb-4">
+                <strong class="text-[#0065bd]">{{ evaluation.filename }}</strong>
+                <p>{{ evaluation.result }}</p>
             </div>
+            {% endfor %}
+        </div>
         {% endif %}
     </div>
 </body>
